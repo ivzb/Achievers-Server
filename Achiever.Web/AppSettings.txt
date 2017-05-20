@@ -1,0 +1,43 @@
+﻿<add key="IssuerId" value="daf4ccc0-a07f-40e0-be48-3ef909e3b57b" />
+<!-- Add-Ins, DevSPS-Addins SN=690000007dd450fa8eb17f0cc500000000007d -->
+<add key="ClientSigningCertificateSerialNumber" value="690000007dd450fa8eb17f0cc500000000007d" />  
+
+DEVSPS2013I11
+<add key="ClientId" value="cef36cee-c360-42d8-916a-2721999f2fd8" />
+
+devsps2013i05
+<add key="ClientId" value="0b09beec-1c7a-418d-a4a1-6ce03c8682fd" />
+
+devsps2013pgp
+<add key="ClientId" value="2c3c5e80-4839-493e-aa49-4facac829a38" />
+
+devsps2013i06
+<add key="ClientId" value="03cc4518-b66d-4c70-bf7e-9f21d20a285b" />
+
+devsps2013i12
+<add key="ClientId" value="fdd4cb6c-43d3-4792-8fd1-85ebe1cedf4d" />
+
+
+https://devsp2013fnd01/sites/addinstest/DPMMine
+App Id:    4f23c30c-2718-42b8-85e3-e29197f482d5  
+App Secret:    B1kkI31lMGkZ9oYlrTTSh48TmMIg0XBjIP90cNlYZnE=  
+Title:    DPM Mine  
+App Domain:    devsps2013-addins:8004
+Redirect URI:    https://devsps2013-addins:8004/  
+
+/* MINESERVER Configurations*/
+https://mineserver/sites/Achiever
+
+App Id:    4f23c30c-2718-42b8-85e3-e29197f482d5  
+App Secret:    B1kkI31lMGkZ9oYlrTTSh48TmMIg0XBjIP90cNlYZnE=  
+Title:    Mine 360  
+App Domain:    mineserver:8080  
+Redirect URI:    https://mineserver:8080/  
+
+IssuerId :  e4c26495-7eef-429c-9909-eddf5c292945
+Realm :  adcb41bc-25ca-480f-bf7d-6d93bbc27531
+Full Issuer Identifier :  e4c26495-7eef-429c-9909-eddf5c292945@adcb41bc-25ca-480f-bf7d-6d93bbc27531
+
+<add key="IssuerId" value="e4c26495-7eef-429c-9909-eddf5c292945" />
+<!-- Add-Ins, Achiever SN=200000000709648e55254ce61f000000000007 -->
+<add key="ClientSigningCertificateSerialNumber" value="200000000709648e55254ce61f000000000007" />  
