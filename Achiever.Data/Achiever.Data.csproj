@@ -91,10 +91,8 @@
     <Compile Include="Category.cs">
       <DependentUpon>ApplicationDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Enums\EvidenceTypesEnum.cs" />
     <Compile Include="Evidence.cs">
-      <DependentUpon>ApplicationDbContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EvidenceType.cs">
       <DependentUpon>ApplicationDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Involvement.cs">

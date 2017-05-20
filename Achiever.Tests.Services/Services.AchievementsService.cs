@@ -53,7 +53,7 @@
             int pageSize = 21;
             int pageOffset = 1;
 
-            ISet<int> categoryIds = new HashSet<int>(this.Categories.Select(x => x.Id));
+            ISet<int> categoryIds = new HashSet<int>(this.Categories.Where(x => x.Children.Count == 0).Select(x => x.Id));
 
             foreach (int categoryId in categoryIds)
             {

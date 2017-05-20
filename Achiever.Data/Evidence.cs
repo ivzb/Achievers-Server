@@ -16,12 +16,11 @@ namespace Achiever.Data
     {
         public int Id { get; set; }
         public string Comment { get; set; }
-        public int EvidenceTypeId { get; set; }
+        public int EvidenceType { get; set; }
         public string Url { get; set; }
         public int AchievementId { get; set; }
         public System.DateTime CreatedOn { get; set; }
     
         public virtual Achievement Achievement { get; set; }
-        public virtual EvidenceType EvidenceType { get; set; }
     }
 }

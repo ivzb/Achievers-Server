@@ -17,7 +17,7 @@ namespace Achiever.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Achievement()
         {
-            this.Evidences = new HashSet<Evidence>();
+            this.Evidence = new HashSet<Evidence>();
         }
     
         public int Id { get; set; }
@@ -31,6 +31,6 @@ namespace Achiever.Data
         public virtual Category Category { get; set; }
         public virtual Involvement Involvement { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Evidence> Evidences { get; set; }
+        public virtual ICollection<Evidence> Evidence { get; set; }
     }
 }

@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EvidenceService.cs" />
     <Compile Include="CategoriesService.cs" />
     <Compile Include="DefaultService{T}.cs" />
     <Compile Include="AchievementsService.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Interfaces\IDefaultService{T}.cs" />
     <Compile Include="BaseService{T, K}.cs" />
     <Compile Include="Interfaces\IBaseService{T, K}.cs" />
+    <Compile Include="Interfaces\IEvidenceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

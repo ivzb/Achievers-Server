@@ -28,7 +28,6 @@ namespace Achiever.Data
         public virtual DbSet<Achievement> Achievements { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Evidence> Evidences { get; set; }
-        public virtual DbSet<EvidenceType> EvidenceTypes { get; set; }
         public virtual DbSet<Involvement> Involvements { get; set; }
     }
 }

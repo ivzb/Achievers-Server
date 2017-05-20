@@ -2,7 +2,9 @@
 {
     using Achiever.Data;
     using Achiever.Services.Data.Interfaces;
+    using Common.Extenders;
     using Data.Common.Models;
+    using Data.Enums;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,14 +18,16 @@
 
             this.InitCategories();
             this.InitAchievements();
+            this.MapAchievementsToCategories();
 
-            //this.MapAchievementsAndThropheys();
-            //this.MapAchievementsAndGroups();
+            this.InitEvidence();
+            this.MapEvidenceToAchievements();
         }
 
         protected Random Random { get; private set; }
         protected IList<Achievement> Achievements { get; private set; }
         protected IList<Category> Categories { get; private set; }
+        protected IList<Evidence> Evidence { get; private set; }
 
         protected string RandomString(int length = 4)
         {
@@ -42,7 +46,7 @@
         private void InitCategories()
         {
             this.Categories = new List<Category>();
-            this.GenerateCategories(150);
+            this.GenerateCategories(15);
         }
         private void GenerateCategories(int count)
         {
@@ -87,7 +91,7 @@
         {
             this.Achievements = new List<Achievement>();
 
-            for (int i = 1; i < 1000; i++)
+            for (int i = 1; i < 10000; i++)
             {
                 this.Achievements.Add(new Achievement
                 {
@@ -98,29 +102,48 @@
                 });
             }
         }
-        //private void MapAchievementsAndGroups()
-        //{
-        //    foreach (Achievement achievement in this.Achievements)
-        //    {
-        //        Group group = this.Groups[this.Random.Next(0, this.Groups.Count)];
+        private void MapAchievementsToCategories()
+        {
+            Category[] leafCategories = this.Categories.Where(x => x.Children.Count == 0).Distinct().ToArray();
 
-        //        achievement.GroupId = group.Id;
-        //        achievement.Group = group;
+            foreach (Achievement achievement in this.Achievements)
+            {
+                Category category = leafCategories[this.Random.Next(0, leafCategories.Length)];
 
-        //        group.Achievements.Add(achievement);
-        //    }
-        //}
-        //private void MapAchievementsAndThropheys()
-        //{
-        //    foreach (Achievement achievement in this.Achievements)
-        //    {
-        //        Throphey throphey = this.Thropheys[this.Random.Next(0, this.Thropheys.Count)];
+                achievement.CategoryId = category.Id;
+                achievement.Category = category;
 
-        //        achievement.ThropheyId = throphey.Id;
-        //        achievement.Throphey = throphey;
+                category.Achievements.Add(achievement);
+            }
+        }
 
-        //        throphey.Achievements.Add(achievement);
-        //    }
-        //}
+        private void InitEvidence()
+        {
+            this.Evidence = new List<Evidence>();
+
+            for (int i = 1; i < 20000; i++)
+            {
+                this.Evidence.Add(new Evidence 
+                {
+                    Id = i,
+                    Comment = this.RandomString(this.Random.Next(10, 30)),
+                    Url = this.RandomString(this.Random.Next(50, 100)),
+                    EvidenceType = (int) EnumExtenders.RandomEnumValue<EvidenceTypesEnum>(),
+                    CreatedOn = DateTime.UtcNow
+                });
+            }
+        }
+        private void MapEvidenceToAchievements()
+        {
+            foreach (Evidence evidence in this.Evidence)
+            {
+                Achievement achievement = this.Achievements[this.Random.Next(0, this.Achievements.Count)];
+
+                evidence.AchievementId = achievement.Id;
+                evidence.Achievement = achievement;
+
+                achievement.Evidence.Add(evidence);
+            }
+        }
     }
 }
