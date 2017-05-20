@@ -1,6 +1,8 @@
 ﻿namespace Achiever.Tests.Web.ViewModels
 {
     using Achiever.Data;
+    using Achiever.Services.Data.Interfaces;
+    using Data.Common.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;

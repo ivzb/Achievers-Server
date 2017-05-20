@@ -48,12 +48,12 @@
         }
 
         [TestMethod]
-        public void CategoriesService_Load()
+        public void CategoriesService_GetByParentId()
         {
             int pageSize = 21;
             int pageOffset = 1;
 
-            IEnumerable<int?> parentIds = this.Categories.Select(x => x.ParentId).Distinct();
+            ISet<int?> parentIds = new HashSet<int?>(this.Categories.Select(x => x.ParentId));
 
             foreach (int? parentId in parentIds)
             {
