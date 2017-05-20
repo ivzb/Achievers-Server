@@ -1,9 +1,8 @@
 ﻿namespace Achiever.Services.Data.Interfaces
 {
-    using System;
-    using System.Linq;
     using Achiever.Data;
     using Achiever.Services.Models;
+    using System.Linq;
 
     public interface IAchievementsService : IDefaultService<Achievement>
     {

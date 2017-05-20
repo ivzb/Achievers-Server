@@ -12,11 +12,9 @@ namespace Achiever.Data.Common
         where T : BaseModel<TKey>
     {
         IQueryable<T> All();
-        IQueryable<T> AllWithDeleted();
         T GetById(TKey id);
         void Add(T entity);
         void Update(T entity);
-        void Delete(T entity);
         void HardDelete(T entity);
         void Attach(T entity);
         void AttachModel<M>(M entity) where M : class;

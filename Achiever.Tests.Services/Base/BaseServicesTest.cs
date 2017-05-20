@@ -12,18 +12,16 @@
         {
             this.Random = new Random();
 
+            this.InitCategories();
             this.InitAchievements();
-            //this.InitThropheys();
-            //this.InitGroups();
 
             //this.MapAchievementsAndThropheys();
             //this.MapAchievementsAndGroups();
         }
 
-        protected Random Random {get; private set; }
+        protected Random Random { get; private set; }
         protected IList<Achievement> Achievements { get; private set; }
-        //protected IList<Throphey> Thropheys { get; private set; }
-        //protected IList<Group> Groups { get; private set; }
+        protected IList<Category> Categories { get; private set; }
 
         protected string RandomString(int length = 4)
         {
@@ -39,39 +37,50 @@
             return randomChars;
         }
 
-        //private void InitThropheys()
-        //{
-        //    this.Thropheys = new List<Throphey>();
+        private void InitCategories()
+        {
+            this.Categories = new List<Category>();
+            this.GenerateCategories(150);
+        }
+        private void GenerateCategories(int count)
+        {
+            if (count == 0) return;
 
-        //    foreach (ThropheyLevelEnum thropheyLevelEnum in Enum.GetValues(typeof(ThropheyLevelEnum)))
-        //    {
-        //        this.Thropheys.Add(new Throphey
-        //        {
-        //            Id = (int)thropheyLevelEnum,
-        //            Name = thropheyLevelEnum.ToString(),
-        //            Level = (int)thropheyLevelEnum,
-        //            Achievements = new List<Achievement>(),
-        //            CreatedOn = DateTime.Now
-        //        });
-        //    }
-        //}
-        //private void InitGroups()
-        //{
-        //    this.Groups = new List<Group>();
+            Category parent = GenerateCategory(null);
 
-        //    for (int i = 1; i < 50; i++)
-        //    {
-        //        this.Groups.Add(new Group
-        //        {
-        //            Id = i,
-        //            Title = this.RandomString(this.Random.Next(3, 6)),
-        //            Description = this.RandomString(this.Random.Next(25, 50)),
-        //            Image = this.RandomString(this.Random.Next(500, 1000)),
-        //            Achievements = new List<Achievement>(),
-        //            CreatedOn = DateTime.Now
-        //        });
-        //    }
-        //}
+            for (int i = 0; i < 5; i++)
+            {
+                Category innerParent = GenerateCategory(parent);
+
+                for (int j = 0; j < 3; j++) GenerateCategory(innerParent);
+            }
+
+            GenerateCategories(--count);
+        }
+
+        private Category GenerateCategory(Category parent)
+        {
+            int id = this.Categories.Count + 1;
+
+            Category newCategory = new Category
+            {
+                Id = this.Categories.Count + 1,
+                Title = this.RandomString(this.Random.Next(10, 30)),
+                Description = this.RandomString(this.Random.Next(50, 100)),
+                ImageUrl = this.RandomString(this.Random.Next(20, 30)),
+                CreatedOn = DateTime.UtcNow
+            };
+
+            if (parent != null)
+            {
+                newCategory.ParentId = parent.Id;
+                newCategory.Parent = parent;
+            }
+
+            this.Categories.Add(newCategory);
+            return newCategory;
+        }
+
         private void InitAchievements()
         {
             this.Achievements = new List<Achievement>();
@@ -83,7 +92,7 @@
                     Id = i,
                     Title = this.RandomString(this.Random.Next(10, 30)),
                     Description = this.RandomString(this.Random.Next(50, 100)),
-                    CreatedOn = DateTime.Now
+                    CreatedOn = DateTime.UtcNow
                 });
             }
         }

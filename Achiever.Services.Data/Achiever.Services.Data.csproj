@@ -58,9 +58,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriesService.cs" />
     <Compile Include="DefaultService{T}.cs" />
     <Compile Include="AchievementsService.cs" />
     <Compile Include="Interfaces\IAchievementsService.cs" />
+    <Compile Include="Interfaces\ICategoriesService.cs" />
     <Compile Include="Interfaces\IDefaultService{T}.cs" />
     <Compile Include="BaseService{T, K}.cs" />
     <Compile Include="Interfaces\IBaseService{T, K}.cs" />
@@ -96,9 +98,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Diagrams\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -45,7 +45,7 @@
         }
         public virtual void Delete(T entity)
         {
-            this.repository.Delete(entity);
+            this.repository.HardDelete(entity);
             this.repository.Save();
         }
     }

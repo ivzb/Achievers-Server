@@ -173,8 +173,8 @@
           <Property Name="ParentId" Type="Int32" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Achievements" Relationship="Self.FK_Achievements_Categories" FromRole="Categories" ToRole="Achievements" />
-          <NavigationProperty Name="Categories1" Relationship="Self.FK_Categories_Categories" FromRole="Categories" ToRole="Categories1" />
-          <NavigationProperty Name="Category1" Relationship="Self.FK_Categories_Categories" FromRole="Categories1" ToRole="Categories" />
+          <NavigationProperty Name="Children" Relationship="Self.FK_Categories_Categories" FromRole="Categories" ToRole="Categories1" />
+          <NavigationProperty Name="Parent" Relationship="Self.FK_Categories_Categories" FromRole="Categories1" ToRole="Categories" />
         </EntityType>
         <EntityType Name="Evidence">
           <Key>

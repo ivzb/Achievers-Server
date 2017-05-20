@@ -34,10 +34,6 @@ namespace Achiever.Data.Common
 
         public IQueryable<T> All()
         {
-            return this.DbSet.Where(x => !x.IsDeleted);
-        }
-        public IQueryable<T> AllWithDeleted()
-        {
             return this.DbSet;
         }
         public T GetById(K id)
@@ -51,11 +47,6 @@ namespace Achiever.Data.Common
         public void Update(T entity)
         {
             this.ChangeState(entity, EntityState.Modified);
-        }
-        public void Delete(T entity)
-        {
-            entity.IsDeleted = true;
-            entity.DeletedOn = DateTime.Now;
         }
         public void HardDelete(T entity)
         {

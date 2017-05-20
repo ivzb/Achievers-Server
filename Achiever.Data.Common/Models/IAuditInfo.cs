@@ -6,6 +6,6 @@
     {
         DateTime CreatedOn { get; set; }
 
-        DateTime? ModifiedOn { get; set; }
+        //DateTime? ModifiedOn { get; set; }
     }
 }

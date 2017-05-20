@@ -64,6 +64,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Base\BaseServicesTest.cs" />
+    <Compile Include="Services.CategoriesService.cs" />
     <Compile Include="Services.AchievementsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

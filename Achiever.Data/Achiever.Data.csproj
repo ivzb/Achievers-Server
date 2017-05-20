@@ -102,6 +102,10 @@
     </Compile>
     <Compile Include="Partials\Context\ApplicationDbContext.cs" />
     <Compile Include="Partials\Models\Achievement.cs" />
+    <Compile Include="Partials\Models\Category.cs" />
+    <Compile Include="Partials\Models\Evidence.cs" />
+    <Compile Include="Partials\Models\EvidenceType.cs" />
+    <Compile Include="Partials\Models\Involvement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

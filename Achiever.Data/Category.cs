@@ -18,7 +18,7 @@ namespace Achiever.Data
         public Category()
         {
             this.Achievements = new HashSet<Achievement>();
-            this.Categories1 = new HashSet<Category>();
+            this.Children = new HashSet<Category>();
         }
     
         public int Id { get; set; }
@@ -31,7 +31,7 @@ namespace Achiever.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Achievement> Achievements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Categories1 { get; set; }
-        public virtual Category Category1 { get; set; }
+        public virtual ICollection<Category> Children { get; set; }
+        public virtual Category Parent { get; set; }
     }
 }
