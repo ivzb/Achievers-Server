@@ -2,6 +2,7 @@
 {
     using Achiever.Data;
     using Achiever.Data.Common;
+    using Achiever.Data.Models;
     using Achiever.Services.Data.Interfaces;
     using Achiever.Services.Models;
     using System.Data.Entity;

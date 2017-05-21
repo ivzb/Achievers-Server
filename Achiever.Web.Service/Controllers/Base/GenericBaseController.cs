@@ -26,13 +26,14 @@ namespace Achiever.Web.Service.Controllers.Base
         {
             try
             {
-                T val = service.Get().FirstOrDefault(x => x.Id == id);
+                T val = service.Get(id);
                 K result = Mapper.Map<T, K>(val);
 
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
             catch (Exception e)
             {
+                // todo: return 404
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
         } 

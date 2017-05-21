@@ -2,6 +2,7 @@
 {
     using Achiever.Data;
     using Achiever.Web.ViewModels;
+    using Data.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

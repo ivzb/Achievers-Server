@@ -81,6 +81,10 @@
       <Project>{edfe3c57-ef5b-4636-9ecc-d0baca6b6379}</Project>
       <Name>Mine360.Data.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Achiever.Data.Models\Achiever.Data.Models.csproj">
+      <Project>{22accdee-7180-44f5-9d48-a0694aa07f23}</Project>
+      <Name>Achiever.Data.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Achiever.Data\Achiever.Data.csproj">
       <Project>{7c950cdc-9587-4b65-a204-988efed17948}</Project>
       <Name>Mine360.Data</Name>

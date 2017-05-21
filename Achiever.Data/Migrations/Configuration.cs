@@ -1,33 +1,43 @@
-﻿namespace Achiever.Tests.Web.ViewModels
+namespace Achiever.Data.Migrations
 {
-    using Achiever.Data;
-    using Achiever.Services.Data.Interfaces;
-    using Common.Extenders;
-    using Data.Common.Models;
-    using Data.Models;
+    using Achiever.Common.Extenders;
+    using Models;
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
     using System.Linq;
     using System.Text;
 
-    public abstract class BaseServicesTest
+    internal sealed class Configuration : DbMigrationsConfiguration<Achiever.Data.ApplicationDbContext>
     {
-        public BaseServicesTest()
+        public Configuration()
         {
-            this.Random = new Random();
-
-            this.InitCategories();
-            this.InitAchievements();
-            this.MapAchievementsToCategories();
-
-            this.InitEvidence();
-            this.MapEvidenceToAchievements();
+#if DEBUG
+            this.AutomaticMigrationsEnabled = true;
+            this.AutomaticMigrationDataLossAllowed = true;
+#endif
         }
 
+        protected ApplicationDbContext Context { get; private set; }
         protected Random Random { get; private set; }
+
         protected IList<Achievement> Achievements { get; private set; }
         protected IList<Category> Categories { get; private set; }
         protected IList<Evidence> Evidence { get; private set; }
+
+        protected override void Seed(Achiever.Data.ApplicationDbContext context)
+        {
+            if (context.Categories.Count() == 0)
+            {
+                this.Context = context;
+                this.Random = new Random();
+
+                this.InitCategories();
+                this.InitAchievements();
+                this.InitEvidence();
+            }
+        }
 
         protected string RandomString(int length = 4)
         {
@@ -46,7 +56,7 @@
         private void InitCategories()
         {
             this.Categories = new List<Category>();
-            this.GenerateCategories(15);
+            this.GenerateCategories(5);
         }
         private void GenerateCategories(int count)
         {
@@ -54,7 +64,7 @@
 
             Category parent = GenerateCategory(null);
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Category innerParent = GenerateCategory(parent);
 
@@ -66,11 +76,8 @@
 
         private Category GenerateCategory(Category parent)
         {
-            int id = this.Categories.Count + 1;
-
             Category newCategory = new Category
             {
-                Id = this.Categories.Count + 1,
                 Title = this.RandomString(this.Random.Next(10, 30)),
                 Description = this.RandomString(this.Random.Next(50, 100)),
                 ImageUrl = this.RandomString(this.Random.Next(20, 30)),
@@ -83,67 +90,56 @@
                 newCategory.Parent = parent;
             }
 
+            this.Context.Categories.Add(newCategory);
+            this.Context.SaveChanges();
             this.Categories.Add(newCategory);
+
             return newCategory;
         }
 
         private void InitAchievements()
         {
             this.Achievements = new List<Achievement>();
-
-            for (int i = 1; i < 10000; i++)
-            {
-                this.Achievements.Add(new Achievement
-                {
-                    Id = i,
-                    Title = this.RandomString(this.Random.Next(10, 30)),
-                    Description = this.RandomString(this.Random.Next(50, 100)),
-                    CreatedOn = DateTime.UtcNow
-                });
-            }
-        }
-        private void MapAchievementsToCategories()
-        {
             Category[] leafCategories = this.Categories.Where(x => x.Children.Count == 0).Distinct().ToArray();
 
-            foreach (Achievement achievement in this.Achievements)
+            for (int i = 1; i < 100; i++)
             {
-                Category category = leafCategories[this.Random.Next(0, leafCategories.Length)];
+                Achievement newAchievement = new Achievement
+                {
+                    Title = this.RandomString(this.Random.Next(10, 30)),
+                    Description = this.RandomString(this.Random.Next(50, 100)),
+                    CategoryId = leafCategories[this.Random.Next(0, leafCategories.Length)].Id,
+                    CreatedOn = DateTime.UtcNow,
+                };
 
-                achievement.CategoryId = category.Id;
-                achievement.Category = category;
-
-                category.Achievements.Add(achievement);
+                this.Context.Achievements.Add(newAchievement);
+                this.Achievements.Add(newAchievement);
             }
+
+            this.Context.SaveChanges();
         }
 
         private void InitEvidence()
         {
             this.Evidence = new List<Evidence>();
+            Achievement[] achievements = this.Achievements.Distinct().ToArray();
 
-            for (int i = 1; i < 20000; i++)
+            for (int i = 1; i < 500; i++)
             {
-                this.Evidence.Add(new Evidence 
+                Evidence newEvidence = new Evidence
                 {
-                    Id = i,
                     Title = this.RandomString(this.Random.Next(10, 30)),
                     Url = this.RandomString(this.Random.Next(50, 100)),
                     EvidenceType = EnumExtenders.RandomEnumValue<EvidenceType>(),
+                    AchievementId = achievements[this.Random.Next(0, achievements.Length)].Id,
                     CreatedOn = DateTime.UtcNow
-                });
-            }
-        }
-        private void MapEvidenceToAchievements()
-        {
-            foreach (Evidence evidence in this.Evidence)
-            {
-                Achievement achievement = this.Achievements[this.Random.Next(0, this.Achievements.Count)];
+                };
 
-                evidence.AchievementId = achievement.Id;
-                evidence.Achievement = achievement;
-
-                achievement.Evidence.Add(evidence);
+                this.Context.Evidecne.Add(newEvidence);
+                this.Evidence.Add(newEvidence);
             }
+
+            this.Context.SaveChanges();
         }
     }
 }

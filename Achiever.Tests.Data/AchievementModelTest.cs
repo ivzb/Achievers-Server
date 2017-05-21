@@ -1,6 +1,7 @@
 ﻿namespace Achiever.Tests.Data
 {
     using Achiever.Data;
+    using Achiever.Data.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

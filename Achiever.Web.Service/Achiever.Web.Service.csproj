@@ -26,6 +26,7 @@
     <SccProvider>SAK</SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -194,6 +195,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Base\GenericBaseController.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -237,7 +239,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -261,6 +265,10 @@
     <ProjectReference Include="..\Achiever.Data.Common\Achiever.Data.Common.csproj">
       <Project>{edfe3c57-ef5b-4636-9ecc-d0baca6b6379}</Project>
       <Name>Mine360.Data.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Achiever.Data.Models\Achiever.Data.Models.csproj">
+      <Project>{22accdee-7180-44f5-9d48-a0694aa07f23}</Project>
+      <Name>Achiever.Data.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Achiever.Data\Achiever.Data.csproj">
       <Project>{7c950cdc-9587-4b65-a204-988efed17948}</Project>

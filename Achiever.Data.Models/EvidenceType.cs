@@ -1,6 +1,6 @@
-﻿namespace Achiever.Data.Enums
+﻿namespace Achiever.Data.Models
 {
-    public enum EvidenceTypesEnum
+    public enum EvidenceType
     {
         Image = 1,
         Video,

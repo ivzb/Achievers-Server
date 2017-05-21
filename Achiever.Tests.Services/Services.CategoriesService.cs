@@ -6,6 +6,7 @@
     using Achiever.Services.Data.Interfaces;
     using Achiever.Services.Models;
     using Achiever.Tests.Web.ViewModels;
+    using Data.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using System.Collections.Generic;

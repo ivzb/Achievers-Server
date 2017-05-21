@@ -7,12 +7,11 @@
     using Data.Models;
     using System.ComponentModel.DataAnnotations;
 
-    public class AchievementViewModel : BaseViewModel, IMapFrom<Achievement>, IMapTo<Achievement>, IHaveCustomMappings
+    public class CategoryViewModel : BaseViewModel, IMapFrom<Category>, IMapTo<Category>, IHaveCustomMappings
     {
-        [Required]
         public string Title { get; set; }
-        [Required]
         public string Description { get; set; }
+        public string ImageUrl { get; set; }
 
         public void CreateMappings(IMapperConfiguration configuration)
         {

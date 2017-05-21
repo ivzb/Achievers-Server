@@ -8,8 +8,8 @@ namespace Achiever.Data.Common.Models
     public abstract class BaseModel<TKey> : IAuditInfo //, IDeletableEntity
     {
         [Key]
-        public new TKey Id { get; set; }
+        public TKey Id { get; set; }
 
-        public new DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }
