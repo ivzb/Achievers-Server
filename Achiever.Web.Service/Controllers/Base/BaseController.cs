@@ -1,10 +1,12 @@
-﻿using System.Web.Http;
-using AutoMapper;
-using Achiever.Web.Infrastructure.Mapping;
-
-namespace Achiever.Web.Service.Controllers.Base
+﻿namespace Achiever.Web.Service.Controllers.Base
 {
-    public class BaseController : ApiController
+    using AutoMapper;
+    using Achiever.Web.Infrastructure.Mapping;
+    using System.Web.OData;
+    using Achiever.Web.Service.Infrastructure;
+
+    [GlobalExceptionFilter]
+    public class BaseController : ODataController
     {
         protected IMapper Mapper
         {
