@@ -40,7 +40,7 @@
         }
 
         // Parent
-        // GET: odata/GetParentCategory
+        // GET: odata/RootCategory
         [EnableQuery(
             PageSize = 21,
             AllowedArithmeticOperators = AllowedArithmeticOperators.None,
@@ -50,8 +50,8 @@
             AllowedQueryOptions = AllowedQueryOptions.Top |
                                          AllowedQueryOptions.Skip |
                                          AllowedQueryOptions.OrderBy)]
-        [ODataRoute("GetParentCategory")]
-        public IQueryable<Category> GetParentCategory()
+        [ODataRoute("RootCategory")]
+        public IQueryable<Category> GetRootCategory()
         {
             return this.service.Get().Where(x => x.ParentId == null);
         }

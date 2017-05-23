@@ -22,19 +22,20 @@
             builder.EntitySet<Achievement>("Achievements");
             builder.EntitySet<Evidence>("Evidence");
 
-            FunctionConfiguration function = builder.Function("GetParentCategory");
+            FunctionConfiguration function = builder.Function("RootCategory");
             function.ReturnsFromEntitySet<Category>("Categories");
 
             config.MapODataServiceRoute(
                 routeName: "odata",
                 routePrefix: "odata",
-                model: builder.GetEdmModel());
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = RouteParameter.Optional }
+                model: builder.GetEdmModel()
             );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = RouteParameter.Optional }
+            //);
 
             // Web API Filters
             config.Filters.Add(new GlobalExceptionFilterAttribute());
