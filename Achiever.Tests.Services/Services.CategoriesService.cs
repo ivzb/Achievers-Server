@@ -47,45 +47,5 @@
                 Assert.IsTrue(mock.Equals(serviceResult));
             }
         }
-
-        [TestMethod]
-        public void CategoriesService_GetByParentId()
-        {
-            int pageSize = 21;
-            int pageOffset = 1;
-
-            ISet<int?> parentIds = new HashSet<int?>(this.Categories.Select(x => x.ParentId));
-
-            foreach (int? parentId in parentIds)
-            {
-                IEnumerable<Category> currentSelectedCategories = base.Categories
-                    .Where(x => x.ParentId == parentId);
-
-                int lastPage = currentSelectedCategories.Count() / (pageSize - pageOffset);
-
-                for (int pageIndex = 1; pageIndex <= lastPage + pageOffset; pageIndex++)
-                {
-                    IServicePage servicePage = new ServicePage(pageIndex, pageSize, pageOffset);
-
-                    IList<Category> serviceResults = this.categoriesService
-                        .GetByParentId(parentId, servicePage)
-                        .ToList();
-
-                    IList<Category> filteredMocks = currentSelectedCategories
-                        .OrderByDescending(x => x.CreatedOn)
-                        .ThenByDescending(x => x.Id)
-                        .Skip(servicePage.LinqSkip)
-                        .Take(servicePage.LinqTake)
-                        .ToList();
-
-                    Assert.AreEqual(filteredMocks.Count, serviceResults.Count());
-
-                    for (int i = 0; i < filteredMocks.Count; i++)
-                    {
-                        Assert.IsTrue(filteredMocks[i].Equals(serviceResults[i]));
-                    }
-                }
-            }
-        }
     }
 }

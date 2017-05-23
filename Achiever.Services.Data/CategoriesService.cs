@@ -14,16 +14,5 @@
             : base(categoriesRepository)
         {
         }
-
-        public IQueryable<Category> GetByParentId(int? parentId, IServicePage servicePage)
-        {
-            IQueryable<Category> entities = this.Get()
-                .Where(x => x.ParentId == parentId)
-                .OrderByDescending(x => x.Id)
-                .Skip(() => servicePage.LinqSkip)
-                .Take(() => servicePage.LinqTake);
-
-            return entities;
-        }
     }
 }

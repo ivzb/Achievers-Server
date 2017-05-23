@@ -1,29 +1,14 @@
 ﻿namespace Achiever.Services.Data
 {
-    using Achiever.Data;
     using Achiever.Data.Common;
     using Achiever.Data.Models;
     using Achiever.Services.Data.Interfaces;
-    using Achiever.Services.Models;
-    using System.Data.Entity;
-    using System.Linq;
 
     public class AchievementsService : DefaultService<Achievement>, IAchievementsService
     {
         public AchievementsService(IDbRepository<Achievement> achievementsRepository)
             : base(achievementsRepository)
         {
-        }
-
-        public IQueryable<Achievement> GetByCategoryId(int? categoryId, IServicePage servicePage)
-        {
-            IQueryable<Achievement> entities = this.Get()
-                .Where(x => x.CategoryId == categoryId)
-                .OrderByDescending(x => x.Id)
-                .Skip(() => servicePage.LinqSkip)
-                .Take(() => servicePage.LinqTake);
-
-            return entities;
         }
 
         //public IQueryable<Achievement> Search(string search, IServicePage servicePage)

@@ -7,6 +7,5 @@
 
     public interface IAchievementsService : IDefaultService<Achievement>
     {
-        IQueryable<Achievement> GetByCategoryId(int? categoryId, IServicePage servicePage);
     }
 }

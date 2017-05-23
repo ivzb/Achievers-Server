@@ -68,7 +68,11 @@
                     IServicePage servicePage = new ServicePage(pageIndex, pageSize, pageOffset);
 
                     IList<Evidence> serviceResults = this.evidenceService
-                        .GetByAchievementId(achievementId, servicePage)
+                        .Get()
+                        .Where(x => x.AchievementId == achievementId)
+                        .OrderByDescending(x => x.Id)
+                        .Skip(servicePage.LinqSkip)
+                        .Take(servicePage.LinqTake)
                         .ToList();
 
                     IList<Evidence> filteredMocks = currentSelectedEvidence

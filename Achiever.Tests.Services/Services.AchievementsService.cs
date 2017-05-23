@@ -68,7 +68,12 @@
                     IServicePage servicePage = new ServicePage(pageIndex, pageSize, pageOffset);
 
                     IList<Achievement> serviceResults = this.achievementsService
-                        .GetByCategoryId(categoryId, servicePage)
+                        .Get()
+                        .Where(x => x.CategoryId == categoryId)
+                        .OrderByDescending(x => x.CreatedOn)
+                        .ThenByDescending(x => x.Id)
+                        .Skip(servicePage.LinqSkip)
+                        .Take(servicePage.LinqTake)
                         .ToList();
 
                     IList<Achievement> filteredMocks = currentSelectedAchievements
@@ -86,142 +91,8 @@
                     }
                 }
             }
+        }
 
-            //[TestMethod]
-            //public void AchievementsService_GetByThropheyId_RandomPage()
-            //{
-            //    int pageSize = 21;
-            //    int pageOffset = 1;
-            //    Throphey randomThrophey = base.Thropheys[base.Random.Next(0, base.Thropheys.Count)];
-
-            //    IEnumerable<Achievement> allAchievements = base.Achievements
-            //            .Where(x => x.ThropheyId == randomThrophey.Id);
-            //    int lastPage = allAchievements.Count() / (pageSize - pageOffset);
-            //    int randomPage = base.Random.Next(1, lastPage + 1);
-            //    IServicePage randomServicePage = new ServicePage(randomPage, pageSize, pageOffset);
-
-            //    IList<Achievement> serviceAchievements = this.achievementsService
-            //        .GetByThropheyId(randomThrophey.Id, randomServicePage)
-            //        .ToList();
-
-            //    IList<Achievement> filteredAchievements = allAchievements
-            //        .OrderByDescending(x => x.CreatedOn)
-            //        .ThenByDescending(x => x.Id)
-            //        .Skip(randomServicePage.LinqSkip)
-            //        .Take(randomServicePage.LinqTake)
-            //        .ToList();
-
-            //    Assert.AreEqual(filteredAchievements.Count, serviceAchievements.Count());
-
-            //    for (int i = 0; i < filteredAchievements.Count; i++)
-            //    {
-            //        Assert.IsTrue(filteredAchievements[i].Equals(serviceAchievements[i]));
-            //    }
-            //}
-            //[TestMethod]
-            //public void AchievementsService_GetByThropheyId_AllPossiblePages()
-            //{
-            //    int pageSize = 21;
-            //    int pageOffset = 1;
-
-            //    foreach (Throphey throphey in base.Thropheys)
-            //    {
-            //        IEnumerable<Achievement> allAchievements = base.Achievements
-            //            .Where(x => x.ThropheyId == throphey.Id);
-
-            //        int lastPage = allAchievements.Count() / (pageSize - pageOffset);
-
-            //        for (int pageIndex = 1; pageIndex <= lastPage + pageOffset; pageIndex++)
-            //        {
-            //            IServicePage servicePage = new ServicePage(pageIndex, pageSize, pageOffset);
-
-            //            IList<Achievement> serviceAchievements = this.achievementsService
-            //                .GetByThropheyId(throphey.Id, servicePage)
-            //                .ToList();
-
-            //            IList<Achievement> filteredAchievements = allAchievements
-            //                .OrderByDescending(x => x.CreatedOn)
-            //                .ThenByDescending(x => x.Id)
-            //                .Skip(servicePage.LinqSkip)
-            //                .Take(servicePage.LinqTake)
-            //                .ToList();
-
-            //            Assert.AreEqual(filteredAchievements.Count, serviceAchievements.Count());
-
-            //            for (int i = 0; i < filteredAchievements.Count; i++)
-            //            {
-            //                Assert.IsTrue(filteredAchievements[i].Equals(serviceAchievements[i]));
-            //            }
-            //        }
-            //    }
-            //}
-            //[TestMethod]
-            //public void AchievementsService_GetByGroupId_RandomPage()
-            //{
-            //    int pageSize = 21;
-            //    int pageOffset = 1;
-            //    Group randomGroup = base.Groups[base.Random.Next(0, base.Groups.Count)];
-
-            //    IEnumerable<Achievement> allAchievements = base.Achievements
-            //            .Where(x => x.GroupId == randomGroup.Id);
-            //    int lastPage = allAchievements.Count() / (pageSize - pageOffset);
-            //    int randomPage = base.Random.Next(1, lastPage + 1);
-            //    IServicePage randomServicePage = new ServicePage(randomPage, pageSize, pageOffset);
-
-            //    IList<Achievement> serviceAchievements = this.achievementsService
-            //        .GetByGroupId(randomGroup.Id, randomServicePage)
-            //        .ToList();
-
-            //    IList<Achievement> filteredAchievements = allAchievements
-            //        .OrderByDescending(x => x.CreatedOn)
-            //        .ThenByDescending(x => x.Id)
-            //        .Skip(randomServicePage.LinqSkip)
-            //        .Take(randomServicePage.LinqTake)
-            //        .ToList();
-
-            //    Assert.AreEqual(filteredAchievements.Count, serviceAchievements.Count());
-
-            //    for (int i = 0; i < filteredAchievements.Count; i++)
-            //    {
-            //        Assert.IsTrue(filteredAchievements[i].Equals(serviceAchievements[i]));
-            //    }
-            //}
-            //[TestMethod]
-            //public void AchievementsService_GetByGroupId_AllPossiblePages()
-            //{
-            //    int pageSize = 21;
-            //    int pageOffset = 1;
-
-            //    foreach (Group group in base.Groups)
-            //    {
-            //        IEnumerable<Achievement> allAchievements = base.Achievements
-            //            .Where(x => x.GroupId == group.Id);
-            //        int lastPage = allAchievements.Count() / (pageSize - pageOffset);
-
-            //        for (int pageIndex = 1; pageIndex <= lastPage + pageOffset; pageIndex++)
-            //        {
-            //            IServicePage servicePage = new ServicePage(pageIndex, pageSize, pageOffset);
-
-            //            IList<Achievement> serviceAchievements = this.achievementsService
-            //                .GetByGroupId(group.Id, servicePage)
-            //                .ToList();
-
-            //            IList<Achievement> filteredAchievements = allAchievements
-            //                .OrderByDescending(x => x.CreatedOn)
-            //                .ThenByDescending(x => x.Id)
-            //                .Skip(servicePage.LinqSkip)
-            //                .Take(servicePage.LinqTake)
-            //                .ToList();
-
-            //            Assert.AreEqual(filteredAchievements.Count, serviceAchievements.Count());
-
-            //            for (int i = 0; i < filteredAchievements.Count; i++)
-            //            {
-            //                Assert.IsTrue(filteredAchievements[i].Equals(serviceAchievements[i]));
-            //            }
-            //        }
-            //    }
-            //}
             //[TestMethod]
             //public void AchievementsService_Search()
             //{
@@ -278,5 +149,4 @@
             //    }
             //} 
         }
-    }
 }

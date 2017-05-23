@@ -7,6 +7,5 @@
 
     public interface ICategoriesService : IDefaultService<Category>
     {
-        IQueryable<Category> GetByParentId(int? parentId, IServicePage servicePage);
     }
 }
