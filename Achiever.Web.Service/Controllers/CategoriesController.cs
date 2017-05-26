@@ -17,11 +17,11 @@
             this.service = service;
         }
 
-        // GET: odata/Category(5)
+        // GET: odata/Categories(5)
         [EnableQuery]
-        public Category GetCategory([FromODataUri] int key)
+        public Category GetCategory([FromODataUri] int? key)
         {
-            return this.service.Get(key);
+            return this.service.Get(key.Value);
         }
 
         // GET: odata/Categories
@@ -40,7 +40,7 @@
         }
 
         // Parent
-        // GET: odata/RootCategory
+        // GET: odata/GetRootCategoryChildren
         [EnableQuery(
             PageSize = 21,
             AllowedArithmeticOperators = AllowedArithmeticOperators.None,
@@ -50,8 +50,8 @@
             AllowedQueryOptions = AllowedQueryOptions.Top |
                                          AllowedQueryOptions.Skip |
                                          AllowedQueryOptions.OrderBy)]
-        [ODataRoute("RootCategory")]
-        public IQueryable<Category> GetRootCategory()
+        [ODataRoute("RootCategoryChildren")]
+        public IQueryable<Category> GetRootCategoryChildren()
         {
             return this.service.Get().Where(x => x.ParentId == null);
         }

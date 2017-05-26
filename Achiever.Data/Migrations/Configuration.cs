@@ -80,7 +80,7 @@ namespace Achiever.Data.Migrations
             {
                 Title = this.RandomString(this.Random.Next(10, 30)),
                 Description = this.RandomString(this.Random.Next(50, 100)),
-                ImageUrl = this.RandomString(this.Random.Next(20, 30)),
+                ImageUrl = "https://unsplash.it/500/500/?random&a=" + this.Random.Next(0, 100),
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -109,6 +109,8 @@ namespace Achiever.Data.Migrations
                     Title = this.RandomString(this.Random.Next(10, 30)),
                     Description = this.RandomString(this.Random.Next(50, 100)),
                     CategoryId = leafCategories[this.Random.Next(0, leafCategories.Length)].Id,
+                    ImageUrl = "https://unsplash.it/500/500/?random&a=" + this.Random.Next(0, 100),
+                    Involvement = (Involvement) this.Random.Next(1, 6),
                     CreatedOn = DateTime.UtcNow,
                 };
 

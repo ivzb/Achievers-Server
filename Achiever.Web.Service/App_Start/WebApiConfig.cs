@@ -22,7 +22,7 @@
             builder.EntitySet<Achievement>("Achievements");
             builder.EntitySet<Evidence>("Evidence");
 
-            FunctionConfiguration function = builder.Function("RootCategory");
+            FunctionConfiguration function = builder.Function("RootCategoryChildren");
             function.ReturnsFromEntitySet<Category>("Categories");
 
             config.MapODataServiceRoute(
