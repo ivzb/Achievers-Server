@@ -20,5 +20,10 @@ namespace Achiever.Data
         public IDbSet<Achievement> Achievements { get; set; }
 
         public IDbSet<Evidence> Evidecne { get; set; }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
     }
 }

@@ -8,6 +8,7 @@
     using Base;
     using System.Web.Http.OData.Query;
 
+    [Authorize]
     public class AchievementsController : BaseController
     {
         private IDefaultService<Achievement> service;

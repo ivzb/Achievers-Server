@@ -3,8 +3,10 @@
     using Achiever.Data.Models;
     using Achiever.Services.Data.Interfaces;
     using Base;
+    using System.Web.Http;
     using System.Web.Http.OData;
 
+    [Authorize]
     public class EvidenceController : BaseController
     {
         private IDefaultService<Evidence> service;

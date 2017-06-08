@@ -4,10 +4,12 @@
     using Achiever.Services.Data.Interfaces;
     using Achiever.Web.Service.Controllers.Base;
     using System.Linq;
+    using System.Web.Http;
     using System.Web.OData;
     using System.Web.OData.Query;
     using System.Web.OData.Routing;
 
+    [Authorize]
     public class CategoriesController : BaseController
     {
         IDefaultService<Category> service;
