@@ -17,7 +17,7 @@
 
             // odata API routes
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            config.Expand().Select();
+            config.MaxTop(21);
             builder.EntitySet<Category>("Categories");
             builder.EntitySet<Achievement>("Achievements");
             builder.EntitySet<Evidence>("Evidence");

@@ -35,6 +35,7 @@ namespace Achiever.Data.Migrations
 
                 this.InitCategories();
                 this.InitAchievements();
+                this.Achievements = this.Context.Achievements.ToList();
                 this.InitEvidence();
             }
         }
@@ -102,7 +103,7 @@ namespace Achiever.Data.Migrations
             this.Achievements = new List<Achievement>();
             Category[] leafCategories = this.Categories.Where(x => x.Children.Count == 0).Distinct().ToArray();
 
-            for (int i = 1; i < 100; i++)
+            for (int i = 1; i < 10000; i++)
             {
                 Achievement newAchievement = new Achievement
                 {
@@ -126,12 +127,12 @@ namespace Achiever.Data.Migrations
             this.Evidence = new List<Evidence>();
             Achievement[] achievements = this.Achievements.Distinct().ToArray();
 
-            for (int i = 1; i < 500; i++)
+            for (int i = 1; i < 100000; i++)
             {
                 Evidence newEvidence = new Evidence
                 {
-                    Title = this.RandomString(this.Random.Next(10, 30)),
-                    Url = this.RandomString(this.Random.Next(50, 100)),
+                    Title = "title " + i,
+                    Url = "url " + i,
                     EvidenceType = EnumExtenders.RandomEnumValue<EvidenceType>(),
                     AchievementId = achievements[this.Random.Next(0, achievements.Length)].Id,
                     CreatedOn = DateTime.UtcNow
