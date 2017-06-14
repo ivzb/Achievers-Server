@@ -25,6 +25,7 @@ namespace Achiever.Data.Migrations
         protected IList<Achievement> Achievements { get; private set; }
         protected IList<Category> Categories { get; private set; }
         protected IList<Evidence> Evidence { get; private set; }
+        protected IList<ApplicationUser> ApplicationUsers { get; private set; }
 
         protected override void Seed(Achiever.Data.ApplicationDbContext context)
         {
@@ -33,25 +34,12 @@ namespace Achiever.Data.Migrations
                 this.Context = context;
                 this.Random = new Random();
 
+                this.ApplicationUsers = this.Context.Users.ToList();
                 this.InitCategories();
                 this.InitAchievements();
                 this.Achievements = this.Context.Achievements.ToList();
                 this.InitEvidence();
             }
-        }
-
-        protected string RandomString(int length = 4)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789             ";
-            StringBuilder sb = new StringBuilder();
-
-            string randomChars = new string(
-                Enumerable.Repeat(chars, length)
-                    .Select(x => x[this.Random.Next(x.Length)])
-                    .ToArray()
-            );
-
-            return randomChars;
         }
 
         private void InitCategories()
@@ -69,7 +57,7 @@ namespace Achiever.Data.Migrations
             {
                 Category innerParent = GenerateCategory(parent);
 
-                for (int j = 0; j < 3; j++) GenerateCategory(innerParent);
+                //for (int j = 0; j < 3; j++) GenerateCategory(innerParent);
             }
 
             GenerateCategories(--count);
@@ -79,8 +67,8 @@ namespace Achiever.Data.Migrations
         {
             Category newCategory = new Category
             {
-                Title = this.RandomString(this.Random.Next(10, 30)),
-                Description = this.RandomString(this.Random.Next(50, 100)),
+                Title = Faker.Lorem.GetFirstWord(),
+                Description = Faker.Lorem.Sentence(5),
                 ImageUrl = "https://unsplash.it/500/500/?random&a=" + this.Random.Next(0, 100),
                 CreatedOn = DateTime.UtcNow
             };
@@ -103,16 +91,17 @@ namespace Achiever.Data.Migrations
             this.Achievements = new List<Achievement>();
             Category[] leafCategories = this.Categories.Where(x => x.Children.Count == 0).Distinct().ToArray();
 
-            for (int i = 1; i < 10000; i++)
+            for (int i = 1; i < 500; i++)
             {
                 Achievement newAchievement = new Achievement
                 {
-                    Title = this.RandomString(this.Random.Next(10, 30)),
-                    Description = this.RandomString(this.Random.Next(50, 100)),
+                    Title = Faker.Lorem.GetFirstWord(),
+                    Description = Faker.Lorem.Sentence(5),
                     CategoryId = leafCategories[this.Random.Next(0, leafCategories.Length)].Id,
                     ImageUrl = "https://unsplash.it/500/500/?random&a=" + this.Random.Next(0, 100),
                     Involvement = (Involvement) this.Random.Next(1, 6),
                     CreatedOn = DateTime.UtcNow,
+                    AuthorId = this.ApplicationUsers[this.Random.Next(0, this.ApplicationUsers.Count)].Id
                 };
 
                 this.Context.Achievements.Add(newAchievement);
@@ -127,16 +116,25 @@ namespace Achiever.Data.Migrations
             this.Evidence = new List<Evidence>();
             Achievement[] achievements = this.Achievements.Distinct().ToArray();
 
-            for (int i = 1; i < 100000; i++)
+            for (int i = 1; i < 10000; i++)
             {
                 Evidence newEvidence = new Evidence
                 {
-                    Title = "title " + i,
-                    Url = "url " + i,
+                    Title = Faker.Lorem.GetFirstWord(),
                     EvidenceType = EnumExtenders.RandomEnumValue<EvidenceType>(),
                     AchievementId = achievements[this.Random.Next(0, achievements.Length)].Id,
-                    CreatedOn = DateTime.UtcNow
+                    CreatedOn = DateTime.UtcNow,
+                    AuthorId = this.ApplicationUsers[this.Random.Next(0, this.ApplicationUsers.Count)].Id
                 };
+
+                if (newEvidence.EvidenceType == EvidenceType.Image)
+                {
+                    newEvidence.Url = "https://unsplash.it/500/500/?random&a=" + this.Random.Next(0, 100);
+                }
+                else if (newEvidence.EvidenceType == EvidenceType.Video)
+                {
+                    newEvidence.Url = "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4";
+                }
 
                 this.Context.Evidecne.Add(newEvidence);
                 this.Evidence.Add(newEvidence);

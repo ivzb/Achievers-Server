@@ -8,7 +8,7 @@
     using Base;
     using System.Web.Http.OData.Query;
 
-    [Authorize]
+    //[Authorize]
     public class AchievementsController : BaseController
     {
         private IDefaultService<Achievement> service;
@@ -35,7 +35,8 @@
             AllowedOrderByProperties = "Id",
             AllowedQueryOptions = AllowedQueryOptions.Top |
                                          AllowedQueryOptions.Skip |
-                                         AllowedQueryOptions.OrderBy)]
+                                         AllowedQueryOptions.OrderBy |
+                                         AllowedQueryOptions.Expand)]
         public IQueryable<Evidence> GetEvidence([FromODataUri] int key)
         {
             return this.service.Get().Where(m => m.Id == key).SelectMany(m => m.Evidence);

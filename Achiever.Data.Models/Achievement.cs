@@ -1,10 +1,8 @@
 ﻿namespace Achiever.Data.Models
 {
     using Achiever.Data.Common.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
+    using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Achievement : BaseModel<int>
     {
@@ -23,7 +21,7 @@
 
         public int CategoryId { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public Involvement Involvement { get; set; }
 
@@ -36,5 +34,9 @@
 
             set { this.evidence = value; }
         }
+
+        public string AuthorId { get; set; }
+
+        public virtual ApplicationUser Author { get; set; }
     }
 }

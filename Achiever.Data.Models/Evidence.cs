@@ -1,6 +1,7 @@
 ﻿namespace Achiever.Data.Models
 {
     using Achiever.Data.Common.Models;
+    using System;
     using System.Collections.Generic;
 
     public class Evidence : BaseModel<int>
@@ -17,7 +18,10 @@
 
         public int AchievementId { get; set; }
 
-        public Achievement Achievement { get; set; }
+        public virtual Achievement Achievement { get; set; }
 
+        public string AuthorId { get; set; }
+
+        public virtual ApplicationUser Author { get; set; }
     }
 }

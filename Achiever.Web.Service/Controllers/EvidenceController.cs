@@ -6,7 +6,7 @@
     using System.Web.Http;
     using System.Web.Http.OData;
 
-    [Authorize]
+    //[Authorize]
     public class EvidenceController : BaseController
     {
         private IDefaultService<Evidence> service;

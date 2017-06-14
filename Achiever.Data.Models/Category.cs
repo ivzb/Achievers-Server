@@ -25,7 +25,7 @@ namespace Achiever.Data.Models
 
         public int? ParentId { get; set; }
 
-        public Category Parent { get; set; }
+        public virtual Category Parent { get; set; }
 
         /// <summary>
         /// Achievements that this Category contains

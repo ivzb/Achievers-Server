@@ -3,7 +3,7 @@ using System.Web.Http;
 
 namespace Achiever.Web.Service.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : ApiController 
     {
         [HttpGet]

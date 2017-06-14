@@ -6,6 +6,7 @@
     using Achiever.Data.Models;
     using Infrastructure;
     using Microsoft.Owin.Security.OAuth;
+    using Microsoft.OData.Edm;
 
     public static class WebApiConfig
     {
@@ -21,10 +22,11 @@
 
             // odata API routes
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            config.MaxTop(21);
+            config.MaxTop(21).Expand().Select();
             builder.EntitySet<Category>("Categories");
             builder.EntitySet<Achievement>("Achievements");
             builder.EntitySet<Evidence>("Evidence");
+            EntitySetConfiguration<ApplicationUser> users = builder.EntitySet<ApplicationUser>("Users");
 
             FunctionConfiguration function = builder.Function("RootCategoryChildren");
             function.ReturnsFromEntitySet<Category>("Categories");

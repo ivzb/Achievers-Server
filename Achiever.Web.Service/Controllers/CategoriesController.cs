@@ -9,7 +9,7 @@
     using System.Web.OData.Query;
     using System.Web.OData.Routing;
 
-    [Authorize]
+    //[Authorize]
     public class CategoriesController : BaseController
     {
         IDefaultService<Category> service;
