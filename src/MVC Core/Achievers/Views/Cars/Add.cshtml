@@ -1,0 +1,51 @@
+﻿@model CreateCarViewModel
+@{
+    ViewData["Title"] = "Add New Car";
+}
+
+
+<form asp-controller="Cars" asp-action="Add" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <h4>Add new car</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Make" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Make" class="form-control" />
+            <span asp-validation-for="Make" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Model" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Model" class="form-control" />
+            <span asp-validation-for="Model" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Year" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Year" class="form-control" />
+            <span asp-validation-for="Year" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="PricePerDay" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="PricePerDay" type="number" class="form-control" />
+            <span asp-validation-for="PricePerDay" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">Image</label>
+        <div class="col-md-10">
+            <input type="file" name="image" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Create</button>
+        </div>
+    </div>
+</form>
+
