@@ -1,4 +1,5 @@
-﻿using Achievers.Infrastructure;
+﻿using Achievers.Data.Models;
+using Achievers.Infrastructure;
 using Achievers.Infrastructure.Extensions;
 using Achievers.Infrastructure.Validation;
 using Achievers.Models;

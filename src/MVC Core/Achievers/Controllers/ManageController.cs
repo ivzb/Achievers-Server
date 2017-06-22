@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Achievers.Models;
 using Achievers.Models.ManageViewModels;
+using Achievers.Data.Models;
 
 namespace Achievers.Controllers
 {

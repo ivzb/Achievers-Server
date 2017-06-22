@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace Achievers.Models
+namespace Achievers.Data.Models
 {
     public class User : IdentityUser
     {

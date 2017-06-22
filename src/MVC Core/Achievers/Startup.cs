@@ -10,6 +10,7 @@ using Achievers.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Achievers.Services;
+using Achievers.Data.Models;
 
 namespace Achievers
 {

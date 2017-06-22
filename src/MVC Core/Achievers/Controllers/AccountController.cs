@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Achievers.Models;
 using Achievers.Models.AccountViewModels;
+using Achievers.Data.Models;
 
 namespace Achievers.Controllers
 {
