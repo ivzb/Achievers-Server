@@ -7,7 +7,7 @@ using Achievers.Data;
 
 namespace Achievers.Data.Migrations
 {
-    [DbContext(typeof(CarRentingDbContext))]
+    [DbContext(typeof(AchieversDbContext))]
     [Migration("20170617122801_Renting")]
     partial class Renting
     {

@@ -36,7 +36,7 @@ namespace Achievers
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CarRentingDbContext>(options =>
+            services.AddDbContext<AchieversDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(options =>
@@ -46,7 +46,7 @@ namespace Achievers
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
-                .AddEntityFrameworkStores<CarRentingDbContext>()
+                .AddEntityFrameworkStores<AchieversDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();

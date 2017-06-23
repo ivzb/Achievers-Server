@@ -7,7 +7,7 @@ using Achievers.Data;
 
 namespace Achievers.Data.Migrations
 {
-    [DbContext(typeof(CarRentingDbContext))]
+    [DbContext(typeof(AchieversDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

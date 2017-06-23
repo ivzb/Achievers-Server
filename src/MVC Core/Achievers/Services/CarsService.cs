@@ -5,15 +5,14 @@ using Achievers.Models.Cars;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Achievers.Services
 {
     public class CarsService : ICarsService
     {
-        private readonly CarRentingDbContext data;
+        private readonly AchieversDbContext data;
 
-        public CarsService(CarRentingDbContext data)
+        public CarsService(AchieversDbContext data)
         {
             this.data = data;
         }

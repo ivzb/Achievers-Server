@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Achievers.Data.Migrations
 {
-    [DbContext(typeof(CarRentingDbContext))]
+    [DbContext(typeof(AchieversDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

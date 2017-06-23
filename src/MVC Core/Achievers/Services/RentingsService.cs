@@ -6,9 +6,9 @@ namespace Achievers.Services
 {
     public class RentingsService : IRentingsService
     {
-        private readonly CarRentingDbContext data;
+        private readonly AchieversDbContext data;
 
-        public RentingsService(CarRentingDbContext data)
+        public RentingsService(AchieversDbContext data)
         {
             this.data = data;
         }

@@ -17,5 +17,17 @@ namespace Achievers.Infrastructure.Extensions
 
             return controller.View(model);
         }
+
+        public static async Task<IActionResult> JsonOrNotFound(this Controller controller, Func<Task<object>> getModelFunc)
+        {
+            var model = await getModelFunc();
+
+            if (model == null)
+            {
+                return controller.NotFound();
+            }
+            
+            return controller.Json(model);
+        }
     }
 }
