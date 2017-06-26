@@ -2,7 +2,6 @@
 using Achievers.Infrastructure;
 using Achievers.Infrastructure.Extensions;
 using Achievers.Infrastructure.Validation;
-using Achievers.Models;
 using Achievers.Models.Cars;
 using Achievers.Models.Rentings;
 using Achievers.Services;

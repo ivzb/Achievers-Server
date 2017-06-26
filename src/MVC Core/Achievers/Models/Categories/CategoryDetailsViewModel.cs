@@ -1,4 +1,5 @@
 ﻿using Achievers.Data.Models;
+using Achievers.Models.Achievements;
 using System;
 using System.Collections.Generic;
 using System.Linq;

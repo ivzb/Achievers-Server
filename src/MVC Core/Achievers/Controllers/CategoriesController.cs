@@ -11,15 +11,24 @@ namespace Achievers.Controllers
     {
         private readonly ICategoriesService categories;
 
-        public CategoriesController(
-            ICategoriesService categories)
+        public CategoriesController(ICategoriesService categories)
         {
             this.categories = categories;
         }
 
         public async Task<IActionResult> Details(int id)
-            => await this.JsonOrNotFound(async () => await this.categories.FindAsync(id));
-        
-    
+        {
+            return await this.JsonOrNotFound(async () => await this.categories.FindAsync(id));
+        }
+
+        public async Task<IActionResult> Children(int parentId)
+        {
+            if (!(await this.categories.ExistAsync(parentId)))
+            {
+                return this.NotFound(parentId);
+            }
+
+            return await this.JsonOrNotFound(async () => await this.categories.GetChildrenAsync(parentId));
+        }
     }
 }

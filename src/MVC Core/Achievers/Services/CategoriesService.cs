@@ -1,27 +1,25 @@
-﻿using Achievers.Services.Interfaces;
+﻿using Achievers.Data;
+using Achievers.Data.Models;
+using Achievers.Models.Categories;
+using Achievers.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Achievers.Models.Categories;
-using Achievers.Data;
-using Achievers.Data.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace Achievers.Services
 {
-    public class CategoriesService : ICategoriesService
+    public class CategoriesService : BaseService, ICategoriesService
     {
-        private readonly AchieversDbContext data;
-
         public CategoriesService(AchieversDbContext data)
+            : base (data)
         {
-            this.data = data;
         }
 
         public async Task<List<CategoryViewModel>> AllAsync(int page, int pageSize)
         {
-            var query = this.data.Categories.AsQueryable();
+            IQueryable<Category> query = this.Data.Categories.AsQueryable();
             
             return await query
                 .Skip((page - 1) * pageSize)
@@ -34,29 +32,40 @@ namespace Achievers.Services
         {
             throw new NotImplementedException("todo");
 
-            var newCategory = new Category
+            Category newCategory = new Category
             {
 
             };
 
-            this.data.Add(newCategory);
-            await this.data.SaveChangesAsync();
+            this.Data.Add(newCategory);
+            await this.Data.SaveChangesAsync();
 
             return newCategory.Id;
         }
 
         public async Task<CategoryDetailsViewModel> FindAsync(int id)
-            => await this.data
+        {
+            return await this.Data
                 .Categories
                 .Where(x => x.Id == id)
                 .Select(CategoryDetailsViewModel.FromCategory)
                 .FirstOrDefaultAsync();
+        }
 
         public async Task<List<CategoryViewModel>> GetChildrenAsync(int parentId)
-            => await this.data
+        {
+            return await this.Data
                 .Categories
                 .Where(x => x.ParentId == parentId)
                 .Select(CategoryViewModel.FromCategory)
                 .ToListAsync();
+        }
+
+        public async Task<bool> ExistAsync(int id)
+        {
+            return await this.Data
+                .Categories
+                .AnyAsync(x => x.Id == id);
+        }
     }
 }

@@ -13,5 +13,7 @@ namespace Achievers.Services.Interfaces
         Task<List<CategoryViewModel>> GetChildrenAsync(int parentId);
         
         Task<int> CreateAsync();
+
+        Task<bool> ExistAsync(int id);
     }
 }
