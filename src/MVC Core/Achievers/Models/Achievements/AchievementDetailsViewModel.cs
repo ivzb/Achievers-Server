@@ -1,5 +1,6 @@
 ﻿using Achievers.Data.Models;
 using Achievers.Infrastructure.Extensions;
+using Achievers.Models.Evidence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace Achievers.Models.Achievements
                 Description = x.Description,
                 ImageUrl = x.ImageUrl,
                 Involvement = EnumExtensions<Involvement>.GetDisplayValue(x.Involvement),
-                Evidence = x.Evidence.Select(EvidenceViewModel.FromEvidence)
+                Evidence = x.Evidence.AsQueryable<Achievers.Data.Models.Evidence>().Select(EvidenceViewModel.FromEvidence).ToList()
             };
     }
 }

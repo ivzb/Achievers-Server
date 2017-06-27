@@ -29,7 +29,7 @@ namespace Achievers.Models.Categories
                 Description = x.Description,
                 ImageUrl = x.ImageUrl,
                 ParentId = x.ParentId,
-                Achievements = x.Achievements.Select(AchievementViewModel.FromAchievement)
+                Achievements = x.Achievements.AsQueryable<Achievement>().Select(AchievementViewModel.FromAchievement).ToList()
             };
     }
 }
