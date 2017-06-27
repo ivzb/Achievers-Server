@@ -20,7 +20,7 @@ namespace Achievers.Models.Evidence
             {
                 Id = x.Id,
                 Title = x.Title,
-                Url = x.Url.
+                Url = x.Url,
                 EvidenceType = EnumExtensions<EvidenceType>.GetDisplayValue(x.EvidenceType)
             };
     }
