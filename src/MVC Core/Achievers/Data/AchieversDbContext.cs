@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Achievers.Data
 {
-    public class AchieversDbContext : IdentityDbContext<User>
+    public class AchieversDbContext : IdentityDbContext<User, Role, string>
     {
         public AchieversDbContext(DbContextOptions<AchieversDbContext> options)
             : base(options)

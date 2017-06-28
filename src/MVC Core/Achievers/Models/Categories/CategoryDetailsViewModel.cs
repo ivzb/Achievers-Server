@@ -1,13 +1,12 @@
 ﻿using Achievers.Data.Models;
+using Achievers.Infrastructure.Mapping;
 using Achievers.Models.Achievements;
-using System;
+using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace Achievers.Models.Categories
 {
-    public class CategoryDetailsViewModel
+    public class CategoryDetailsViewModel : IMapFrom<Category>, IMapTo<Category>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -21,15 +20,21 @@ namespace Achievers.Models.Categories
 
         public List<AchievementViewModel> Achievements { get; set; }
 
-        public static Expression<Func<Category, CategoryDetailsViewModel>> FromCategory
-            => x => new CategoryDetailsViewModel
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                ParentId = x.ParentId,
-                Achievements = x.Achievements.Select(AchievementViewModel.FromAchievement).ToList()
-            };
+        public void CreateMappings(IMapperConfigurationExpression configuration)
+        {
+            configuration.CreateMap<CategoryDetailsViewModel, Category>()
+                .ForMember(x => x.Id, m => m.Ignore());
+        }
+
+        //public static Expression<Func<Category, CategoryDetailsViewModel>> FromCategory
+        //    => x => new CategoryDetailsViewModel
+        //    {
+        //        Id = x.Id,
+        //        Title = x.Title,
+        //        Description = x.Description,
+        //        ImageUrl = x.ImageUrl,
+        //        ParentId = x.ParentId,
+        //        Achievements = x.Achievements.Select(AchievementViewModel.FromAchievement).ToList()
+        //    };
     }
 }

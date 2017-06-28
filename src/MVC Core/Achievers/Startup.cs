@@ -17,6 +17,10 @@ using System;
 using SimpleTokenProvider;
 using Microsoft.Extensions.Options;
 using Achievers.Services.Interfaces;
+using Achievers.Models.AccountViewModels;
+using Achievers.Infrastructure.Mapping;
+using System.Reflection;
+using Achievers.Data.Seeding;
 
 namespace Achievers
 {
@@ -45,14 +49,15 @@ namespace Achievers
             services.AddDbContext<AchieversDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddIdentity<User, Role>(options =>
                 {
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                 })
-                .AddEntityFrameworkStores<AchieversDbContext>()
+                .AddUserStore<Achievers.Data.UserStore>()
+                .AddRoleStore<RoleStore>()
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
@@ -60,6 +65,10 @@ namespace Achievers
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IAchievementsService, AchievementsService>();
             services.AddTransient<IEvidenceService, EvidenceService>();
+
+            // Identity stores
+            services.AddTransient<IUserStore<User>, Achievers.Data.UserStore>();
+            services.AddTransient<IRoleStore<Role>, RoleStore>();
         }
 
         // The secret key every token will be signed with.
@@ -69,6 +78,16 @@ namespace Achievers
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            AutoMapperConfig.RegisterMappings(
+                typeof(LoginViewModel).GetTypeInfo().Assembly);
+
+            // Seed data on application startup
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<AchieversDbContext>();
+                AchieversDbContextSeeder.Seed(dbContext, app.ApplicationServices);
+            }
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
