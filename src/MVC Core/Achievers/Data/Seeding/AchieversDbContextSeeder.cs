@@ -40,6 +40,7 @@ namespace Achievers.Data.Seeding
             }
 
             SeedRoles(roleManager);
+            SeedCategories(dbContext);
         }
 
         private static void SeedRoles(RoleManager<Role> roleManager)
@@ -59,6 +60,51 @@ namespace Achievers.Data.Seeding
                     throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
                 }
             }
+        }
+
+        private static void SeedCategories(AchieversDbContext dbContext)
+        {
+            if (dbContext.Categories.Count() > 0) return;
+
+            GenerateCategories(dbContext, 5);
+        }
+
+        private static void GenerateCategories(AchieversDbContext dbContext, int count)
+        {
+            if (count == 0) return;
+
+            Category parent = GenerateCategory(dbContext, null);
+
+            for (int i = 0; i < 3; i++)
+            {
+                Category innerParent = GenerateCategory(dbContext, parent);
+
+                //for (int j = 0; j < 3; j++) GenerateCategory(innerParent);
+            }
+
+            GenerateCategories(dbContext, --count);
+        }
+
+        private static Category GenerateCategory(AchieversDbContext dbContext, Category parent)
+        {
+            Category newCategory = new Category
+            {
+                Title = Faker.Lorem.GetFirstWord(),
+                Description = Faker.Lorem.Sentence(5),
+                ImageUrl = "https://unsplash.it/500/500/?random&a=" + Faker.RandomNumber.Next(0, 100),
+                //CreatedOn = DateTime.UtcNow
+            };
+
+            if (parent != null)
+            {
+                newCategory.ParentId = parent.Id;
+                newCategory.Parent = parent;
+            }
+
+            dbContext.Categories.Add(newCategory);
+            dbContext.SaveChanges();
+
+            return newCategory;
         }
     }
 }

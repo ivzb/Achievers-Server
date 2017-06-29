@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Achievers.Models.Evidence;
 using Achievers.Data;
 using Microsoft.EntityFrameworkCore;
+using Achievers.Infrastructure.Mapping;
 
 namespace Achievers.Services
 {
@@ -21,7 +22,8 @@ namespace Achievers.Services
             return await this.Data
                 .Evidence
                 .Where(x => x.Id == id)
-                .Select(EvidenceDetailsViewModel.FromEvidence)
+                //.Select(EvidenceDetailsViewModel.FromEvidence)
+                .To<EvidenceDetailsViewModel>()
                 .FirstOrDefaultAsync();
         }
 
@@ -30,7 +32,8 @@ namespace Achievers.Services
             return await this.Data
                 .Evidence
                 .Where(x => x.AchievementId == achievementId)
-                .Select(EvidenceViewModel.FromEvidence)
+                //.Select(EvidenceViewModel.FromEvidence)
+                .To<EvidenceViewModel>()
                 .ToListAsync();
         }
 

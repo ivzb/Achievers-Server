@@ -1,4 +1,5 @@
 ﻿using Achievers.Data;
+using Achievers.Infrastructure.Mapping;
 using Achievers.Models.Achievements;
 using Achievers.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,8 @@ namespace Achievers.Services
             return await this.Data
                 .Achievements
                 .Where(x => x.Id == id)
-                .Select(AchievementDetailsViewModel.FromAchievement)
+                //.Select(AchievementDetailsViewModel.FromAchievement)
+                .To<AchievementDetailsViewModel>()
                 .FirstOrDefaultAsync();
         }
 
@@ -29,7 +31,8 @@ namespace Achievers.Services
             return await this.Data
                 .Achievements
                 .Where(x => x.CategoryId == categoryId)
-                .Select(AchievementViewModel.FromAchievement)
+                //.Select(AchievementViewModel.FromAchievement)
+                .To<AchievementViewModel>()
                 .ToListAsync();
         }
 

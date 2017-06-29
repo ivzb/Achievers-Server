@@ -1,11 +1,10 @@
 ﻿using Achievers.Data.Models;
-using Achievers.Infrastructure.Extensions;
-using System;
-using System.Linq.Expressions;
+using Achievers.Infrastructure.Mapping;
+using AutoMapper;
 
 namespace Achievers.Models.Achievements
 {
-    public class AchievementViewModel
+    public class AchievementViewModel : IMapFrom<Achievement>, IMapTo<Achievement>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -15,13 +14,19 @@ namespace Achievers.Models.Achievements
 
         public string Involvement { get; set; }
 
-        public static Expression<Func<Achievement, AchievementViewModel>> FromAchievement
-            => x => new AchievementViewModel
-            {
-                Id = x.Id,
-                Title = x.Title,
-                ImageUrl = x.ImageUrl,
-                Involvement = EnumExtensions<Involvement>.GetDisplayValue(x.Involvement),
-            };
+        public void CreateMappings(IMapperConfigurationExpression configuration)
+        {
+            configuration.CreateMap<AchievementViewModel, Achievement>()
+                .ForMember(x => x.Id, m => m.Ignore());
+        }
+
+        //public static Expression<Func<Achievement, AchievementViewModel>> FromAchievement
+        //    => x => new AchievementViewModel
+        //    {
+        //        Id = x.Id,
+        //        Title = x.Title,
+        //        ImageUrl = x.ImageUrl,
+        //        Involvement = EnumExtensions<Involvement>.GetDisplayValue(x.Involvement),
+        //    };
     }
 }

@@ -1,14 +1,12 @@
 ﻿using Achievers.Data.Models;
-using Achievers.Infrastructure.Extensions;
+using Achievers.Infrastructure.Mapping;
 using Achievers.Models.Evidence;
-using System;
+using AutoMapper;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace Achievers.Models.Achievements
 {
-    public class AchievementDetailsViewModel
+    public class AchievementDetailsViewModel : IMapFrom<Achievement>, IMapTo<Achievement>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -29,15 +27,21 @@ namespace Achievers.Models.Achievements
 
         //public ProfileViewModel Author { get; set; }
 
-        public static Expression<Func<Achievement, AchievementDetailsViewModel>> FromAchievement
-            => x => new AchievementDetailsViewModel
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                Involvement = EnumExtensions<Involvement>.GetDisplayValue(x.Involvement),
-                Evidence = x.Evidence.AsQueryable<Achievers.Data.Models.Evidence>().Select(EvidenceViewModel.FromEvidence).ToList()
-            };
+        public void CreateMappings(IMapperConfigurationExpression configuration)
+        {
+            configuration.CreateMap<AchievementDetailsViewModel, Achievement>()
+                .ForMember(x => x.Id, m => m.Ignore());
+        }
+
+        //public static Expression<Func<Achievement, AchievementDetailsViewModel>> FromAchievement
+        //    => x => new AchievementDetailsViewModel
+        //    {
+        //        Id = x.Id,
+        //        Title = x.Title,
+        //        Description = x.Description,
+        //        ImageUrl = x.ImageUrl,
+        //        Involvement = EnumExtensions<Involvement>.GetDisplayValue(x.Involvement),
+        //        Evidence = x.Evidence.AsQueryable<Achievers.Data.Models.Evidence>().Select(EvidenceViewModel.FromEvidence).ToList()
+        //    };
     }
 }

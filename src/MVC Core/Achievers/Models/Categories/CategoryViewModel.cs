@@ -1,10 +1,10 @@
 ﻿using Achievers.Data.Models;
-using System;
-using System.Linq.Expressions;
+using Achievers.Infrastructure.Mapping;
+using AutoMapper;
 
 namespace Achievers.Models.Categories
 {
-    public class CategoryViewModel
+    public class CategoryViewModel : IMapFrom<Category>, IMapTo<Category>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -12,12 +12,18 @@ namespace Achievers.Models.Categories
 
         public string ImageUrl { get; set; }
 
-        public static Expression<Func<Category, CategoryViewModel>> FromCategory
-            => x => new CategoryViewModel
-            {
-                Id = x.Id,
-                Title = x.Title,
-                ImageUrl = x.ImageUrl
-            };
+        public void CreateMappings(IMapperConfigurationExpression configuration)
+        {
+            configuration.CreateMap<CategoryViewModel, Category>()
+                .ForMember(x => x.Id, m => m.Ignore());
+        }
+
+        //public static Expression<Func<Category, CategoryViewModel>> FromCategory
+        //    => x => new CategoryViewModel
+        //    {
+        //        Id = x.Id,
+        //        Title = x.Title,
+        //        ImageUrl = x.ImageUrl
+        //    };
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Achievers.Data;
 using Achievers.Data.Models;
+using Achievers.Infrastructure.Mapping;
 using Achievers.Models.Categories;
 using Achievers.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,8 @@ namespace Achievers.Services
             return await query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .Select(CategoryViewModel.FromCategory)
+                .To<CategoryViewModel>()
+                //.Select(CategoryViewModel.FromCategory)
                 .ToListAsync();
         }
 
@@ -48,7 +50,8 @@ namespace Achievers.Services
             return await this.Data
                 .Categories
                 .Where(x => x.Id == id)
-                .Select(CategoryDetailsViewModel.FromCategory)
+                .To<CategoryDetailsViewModel>()
+                //.Select(CategoryDetailsViewModel.FromCategory)
                 .FirstOrDefaultAsync();
         }
 
@@ -57,7 +60,8 @@ namespace Achievers.Services
             return await this.Data
                 .Categories
                 .Where(x => x.ParentId == parentId)
-                .Select(CategoryViewModel.FromCategory)
+                .To<CategoryViewModel>()
+                //.Select(CategoryViewModel.FromCategory)
                 .ToListAsync();
         }
 
