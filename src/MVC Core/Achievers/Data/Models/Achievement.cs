@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Achievers.Common.Models;
+using System.Collections.Generic;
 
 namespace Achievers.Data.Models
 {
-    public class Achievement
+    public class Achievement : BaseModel<int>
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public string Description { get; set; }

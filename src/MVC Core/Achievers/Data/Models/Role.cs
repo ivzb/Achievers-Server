@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Achievers.Common.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 
 namespace Achievers.Data.Models
 {
-    public class Role : IdentityRole//, IAuditInfo, IDeletableEntity
+    public class Role : IdentityRole, IAuditInfo, IDeletableEntity
     {
         public Role()
             : this(null)
@@ -16,12 +17,12 @@ namespace Achievers.Data.Models
             this.Id = Guid.NewGuid().ToString();
         }
 
-        //public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        //public DateTime? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
-        //public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
-        //public DateTime? DeletedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
     }
 }

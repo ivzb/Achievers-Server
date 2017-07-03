@@ -1,9 +1,9 @@
-﻿namespace Achievers.Data.Models
-{
-    public class Evidence
-    {
-        public int Id { get; set; }
+﻿using Achievers.Common.Models;
 
+namespace Achievers.Data.Models
+{
+    public class Evidence : BaseModel<int>
+    {
         public string Title { get; set; }
 
         public EvidenceType EvidenceType { get; set; }

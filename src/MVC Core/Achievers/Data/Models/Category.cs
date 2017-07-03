@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Achievers.Common.Models;
+using System.Collections.Generic;
 
 namespace Achievers.Data.Models
 {
     /// <summary>
     /// Categories are hierarchical (Agency list) and only leaf Categories might have Achievements
     /// </summary>
-    public class Category
+    public class Category : BaseModel<int>
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public string Description { get; set; }
