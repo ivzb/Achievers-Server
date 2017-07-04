@@ -11,10 +11,6 @@ namespace Achievers.Data
         {
         }
 
-        public DbSet<Car> Cars { get; set; }
-
-        public DbSet<Renting> Rentings { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Achievement> Achievements { get; set; }
