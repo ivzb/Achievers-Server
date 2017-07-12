@@ -1,15 +1,17 @@
-﻿using Achievers.Services.Interfaces;
+﻿using Achievers.Models.Files;
+using Achievers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Achievers.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class FilesController : Controller
     {
         private readonly IFilesService files;
@@ -18,51 +20,42 @@ namespace Achievers.Controllers
         {
             this.files = files;
         }
-        
-        public async Task<IActionResult> Add()
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile file)
         {
-            //// Check if the request contains multipart/form-data.
-            //if (!Request.Content.IsMimeMultipartContent())
-            //{
-            //    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            //}
+            if (file == null)
+            {
+                return this.BadRequest("Please upload a single file");
+            }
+            
+            byte[] fileBytes;
 
-            //MultipartMemoryStreamProvider memoryProvider = new MultipartMemoryStreamProvider();
+            using (Stream stream = file.OpenReadStream())
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await stream.CopyToAsync(memoryStream);
+                    fileBytes = memoryStream.ToArray();
+                }
+            }
 
-            //try
-            //{
-            //    await Request.Content.ReadAsMultipartAsync(memoryProvider);
-            //    Stream stream = memoryProvider.GetStream(Request.Content, Request.Content.Headers);
+            Data.Models.File newFile = new Data.Models.File
+            {
+                Name = Guid.NewGuid().ToString(),
+                Content = fileBytes,
+                ContentType = file.ContentType
+            };
 
-            //    if (memoryProvider.Contents.Count != 1)
-            //    {
-            //        return Request.CreateResponse(HttpStatusCode.BadRequest, "Please upload a single file");
-            //    }
+            await this.files.CreateAsync(newFile);
 
-            //    HttpContent fileContents = memoryProvider.Contents.SingleOrDefault();
-            //    byte[] fileBytes = await fileContents.ReadAsByteArrayAsync();
-            //    string contentType = fileContents.Headers.ContentType.ToString();
+            FileViewModel result = new FileViewModel
+            {
+                Id = newFile.Id,
+                ContentType = newFile.ContentType
+            };
 
-            //    Data.Models.File file = new Data.Models.File
-            //    {
-            //        Content = fileBytes,
-            //        ContentType = contentType
-            //    };
-
-            //    this.service.Add(file);
-
-            //    FileViewModel result = new FileViewModel
-            //    {
-            //        Id = file.Id,
-            //        ContentType = file.ContentType
-            //    };
-
-            //    return Request.CreateResponse(HttpStatusCode.Created, result);
-            //}
-            //catch (Exception e)
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
-            //}
+            return this.Created(new Uri(this.Request.GetDisplayUrl()), result);
         }
     }
 }

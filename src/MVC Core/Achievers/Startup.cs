@@ -1,26 +1,23 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Achievers.Data;
+using Achievers.Data.Models;
+using Achievers.Data.Seeding;
+using Achievers.Infrastructure.Mapping;
+using Achievers.Models.AccountViewModels;
+using Achievers.Services;
+using Achievers.Services.Interfaces;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Achievers.Data;
-using Achievers.Models;
-using Microsoft.AspNetCore.Identity;
-using System.Threading.Tasks;
-using Achievers.Services;
-using Achievers.Data.Models;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System;
-using SimpleTokenProvider;
 using Microsoft.Extensions.Options;
-using Achievers.Services.Interfaces;
-using Achievers.Models.AccountViewModels;
-using Achievers.Infrastructure.Mapping;
+using Microsoft.IdentityModel.Tokens;
+using SimpleTokenProvider;
+using System;
 using System.Reflection;
-using Achievers.Data.Seeding;
+using System.Text;
 
 namespace Achievers
 {
@@ -65,6 +62,7 @@ namespace Achievers
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IAchievementsService, AchievementsService>();
             services.AddTransient<IEvidenceService, EvidenceService>();
+            services.AddTransient<IFilesService, FilesService>();
 
             // Identity stores
             services.AddTransient<IUserStore<User>, Achievers.Data.UserStore>();

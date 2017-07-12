@@ -1,17 +1,23 @@
-﻿using Achievers.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Achievers.Data;
 using Achievers.Data.Models;
+using Achievers.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Achievers.Services
 {
-    public class FilesService : IFilesService
+    public class FilesService : BaseService, IFilesService
     {
-        public Task<int> CreateAsync(File file)
+        public FilesService(AchieversDbContext data)
+            : base(data)
         {
-            throw new NotImplementedException();
+        }
+
+        public async Task<int> CreateAsync(File file)
+        {
+            this.Data.Add(file);
+            await this.Data.SaveChangesAsync();
+
+            return file.Id;
         }
     }
 }
