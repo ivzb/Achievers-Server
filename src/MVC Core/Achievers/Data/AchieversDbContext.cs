@@ -16,5 +16,7 @@ namespace Achievers.Data
         public DbSet<Achievement> Achievements { get; set; }
 
         public DbSet<Evidence> Evidence { get; set; }
+
+        public DbSet<File> Files { get; set; }
     }
 }
