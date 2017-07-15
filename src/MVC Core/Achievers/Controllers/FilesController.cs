@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Achievers.Infrastructure.Extensions;
 
 namespace Achievers.Controllers
 {
@@ -21,12 +22,18 @@ namespace Achievers.Controllers
             this.files = files;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            return await this.FileOrNotFound(async () => await this.files.FindAsync(id));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file)
         {
             if (file == null)
             {
-                return this.BadRequest("Please upload a single file");
+                return this.BadRequest("Please upload a file");
             }
             
             byte[] fileBytes;
@@ -42,16 +49,18 @@ namespace Achievers.Controllers
 
             Data.Models.File newFile = new Data.Models.File
             {
-                Name = Guid.NewGuid().ToString(),
+                Name = file.FileName, 
                 Content = fileBytes,
                 ContentType = file.ContentType
             };
 
             await this.files.CreateAsync(newFile);
 
+            // TODO: map with automapper
             FileViewModel result = new FileViewModel
             {
                 Id = newFile.Id,
+                Name = newFile.Name,
                 ContentType = newFile.ContentType
             };
 

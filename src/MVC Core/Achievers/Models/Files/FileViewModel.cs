@@ -6,7 +6,7 @@ namespace Achievers.Models.Files
     public class FileViewModel : IMapFrom<Achievers.Data.Models.File>, IMapTo<Achievers.Data.Models.File>, IHaveCustomMappings
     {
         public int Id { get; set; }
-
+        public string Name { get; set; }
         public string ContentType { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
