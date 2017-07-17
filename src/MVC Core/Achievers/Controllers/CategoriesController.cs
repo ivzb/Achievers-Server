@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Achievers.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class CategoriesController : Controller
     {
         private readonly ICategoriesService categories;
@@ -21,11 +21,14 @@ namespace Achievers.Controllers
             return await this.JsonOrNotFound(async () => await this.categories.FindAsync(id));
         }
 
-        public async Task<IActionResult> Children(int parentId)
+        public async Task<IActionResult> Children(int? parentId)
         {
-            if (!(await this.categories.ExistAsync(parentId)))
+            if (parentId != null)
             {
-                return this.NotFound(parentId);
+                if (!(await this.categories.ExistAsync(parentId.Value)))
+                {
+                    return this.NotFound(parentId);
+                }
             }
 
             return await this.JsonOrNotFound(async () => await this.categories.GetChildrenAsync(parentId));

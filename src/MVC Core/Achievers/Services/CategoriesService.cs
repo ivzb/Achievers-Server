@@ -55,7 +55,7 @@ namespace Achievers.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<CategoryViewModel>> GetChildrenAsync(int parentId)
+        public async Task<List<CategoryViewModel>> GetChildrenAsync(int? parentId)
         {
             return await this.Data
                 .Categories

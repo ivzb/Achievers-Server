@@ -10,7 +10,7 @@ namespace Achievers.Services.Interfaces
 
         Task<List<CategoryViewModel>> AllAsync(int page, int pageSize);
 
-        Task<List<CategoryViewModel>> GetChildrenAsync(int parentId);
+        Task<List<CategoryViewModel>> GetChildrenAsync(int? parentId);
         
         Task<int> CreateAsync();
 

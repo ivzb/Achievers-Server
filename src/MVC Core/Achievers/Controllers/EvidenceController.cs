@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Achievers.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class EvidenceController : Controller
     {
         private readonly IEvidenceService evidence;
