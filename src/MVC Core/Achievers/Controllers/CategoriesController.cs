@@ -21,17 +21,17 @@ namespace Achievers.Controllers
             return await this.JsonOrNotFound(async () => await this.categories.FindAsync(id));
         }
 
-        public async Task<IActionResult> Children(int? parentId)
+        public async Task<IActionResult> Children(int? id)
         {
-            if (parentId != null)
+            if (id != null)
             {
-                if (!(await this.categories.ExistAsync(parentId.Value)))
+                if (!(await this.categories.ExistAsync(id.Value)))
                 {
-                    return this.NotFound(parentId);
+                    return this.NotFound(id.Value);
                 }
             }
 
-            return await this.JsonOrNotFound(async () => await this.categories.GetChildrenAsync(parentId));
+            return await this.JsonOrNotFound(async () => await this.categories.GetChildrenAsync(id));
         }
     }
 }
