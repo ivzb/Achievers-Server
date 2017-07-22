@@ -27,6 +27,10 @@ namespace Achievers.Data.Seeding
             Seed(dbContext, roleManager);
         }
 
+
+
+        // todo: extract in different classes
+
         public static void Seed(AchieversDbContext dbContext, RoleManager<Role> roleManager)
         {
             if (dbContext == null)
@@ -77,9 +81,11 @@ namespace Achievers.Data.Seeding
 
             for (int i = 0; i < 3; i++)
             {
-                Category innerParent = GenerateCategory(dbContext, parent);
+                Category child = GenerateCategory(dbContext, parent);
 
-                //for (int j = 0; j < 3; j++) GenerateCategory(innerParent);
+                GenerateAchievements(dbContext, child.Id, i * 3);
+
+                //for (int j = 0; j < 3; j++) GenerateCategory(child);
             }
 
             GenerateCategories(dbContext, --count);
@@ -105,6 +111,37 @@ namespace Achievers.Data.Seeding
             dbContext.SaveChanges();
 
             return newCategory;
+        }
+
+        private static void GenerateAchievements(AchieversDbContext dbContext, Category category, int count) {
+            if (dbContext.Achievements.Count() > 0) return;
+
+            for (int i = 0; i < count; i++) {
+                GenerateAchievement(dbContext, category);
+            }
+        }
+
+        private static Achievement GenerateAchievement(AchieversDbContext dbContext, Category category)
+        {
+            Achievement newAchievement = new Achievement
+            {
+                Title = Faker.Lorem.GetFirstWord(),
+                Description = Faker.Lorem.Sentence(5),
+                ImageUrl = "https://unsplash.it/500/500/?random&a=" + Faker.RandomNumber.Next(0, 100),
+                Involvement = (Involvement) Faker.RandomNumber.Next(1, 5)
+                //CreatedOn = DateTime.UtcNow
+            };
+
+            if (category != null)
+            {
+                newAchievement.CategoryId = category.Id;
+                newAchievement.Category = category;
+            }
+
+            dbContext.Achievements.Add(newAchievement);
+            dbContext.SaveChanges();
+
+            return newAchievement;
         }
     }
 }

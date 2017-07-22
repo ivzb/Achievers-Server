@@ -18,6 +18,7 @@ using SimpleTokenProvider;
 using System;
 using System.Reflection;
 using System.Text;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Achievers
 {
@@ -85,6 +86,11 @@ namespace Achievers
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<AchieversDbContext>();
                 AchieversDbContextSeeder.Seed(dbContext, app.ApplicationServices);
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
