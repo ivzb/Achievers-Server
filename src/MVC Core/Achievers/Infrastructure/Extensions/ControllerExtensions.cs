@@ -25,7 +25,7 @@ namespace Achievers.Infrastructure.Extensions
 
             if (model == null)
             {
-                return controller.NotFound();
+                return controller.NotFound("no entities");
             }
             
             return controller.Json(model);

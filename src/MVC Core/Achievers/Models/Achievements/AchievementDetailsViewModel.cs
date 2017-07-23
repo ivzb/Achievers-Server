@@ -27,6 +27,8 @@ namespace Achievers.Models.Achievements
 
         //public ProfileViewModel Author { get; set; }
 
+        public int CategoryId { get;set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<AchievementDetailsViewModel, Achievement>()

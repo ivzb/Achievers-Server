@@ -23,7 +23,7 @@ namespace Achievers.Controllers
             return await this.JsonOrNotFound(async () => await this.achievements.FindAsync(id));
         }
 
-        public async Task<IActionResult> LoadByCategory(int categoryId)
+        public async Task<IActionResult> ByCategory(int categoryId)
         {
             if (!(await this.categories.ExistAsync(categoryId)))
             {
