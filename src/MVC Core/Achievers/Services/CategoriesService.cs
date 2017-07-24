@@ -69,7 +69,8 @@ namespace Achievers.Services
         {
             return await this.Data
                 .Categories
-                .AnyAsync(x => x.Id == id);
+                .Where(x => x.Id == id)
+                .CountAsync() != 0;
         }
     }
 }
