@@ -19,14 +19,5 @@ namespace Achievers.Models.Achievements
             configuration.CreateMap<AchievementViewModel, Achievement>()
                 .ForMember(x => x.Id, m => m.Ignore());
         }
-
-        //public static Expression<Func<Achievement, AchievementViewModel>> FromAchievement
-        //    => x => new AchievementViewModel
-        //    {
-        //        Id = x.Id,
-        //        Title = x.Title,
-        //        ImageUrl = x.ImageUrl,
-        //        Involvement = EnumExtensions<Involvement>.GetDisplayValue(x.Involvement),
-        //    };
     }
 }

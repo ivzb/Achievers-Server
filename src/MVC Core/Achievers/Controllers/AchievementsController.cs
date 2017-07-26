@@ -23,14 +23,14 @@ namespace Achievers.Controllers
             return await this.JsonOrNotFound(async () => await this.achievements.FindAsync(id));
         }
 
-        public async Task<IActionResult> ByCategory(int categoryId)
+        public async Task<IActionResult> ByCategory(int id)
         {
-            if (!(await this.categories.ExistAsync(categoryId)))
+            if (!(await this.categories.ExistAsync(id)))
             {
-                return this.NotFound(categoryId);
+                return this.NotFound(id);
             }
 
-            return await this.JsonOrNotFound(async () => await this.achievements.LoadByCategoryAsync(categoryId));
+            return await this.JsonOrNotFound(async () => await this.achievements.LoadByCategoryAsync(id));
         }
     }
 }
