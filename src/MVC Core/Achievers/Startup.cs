@@ -95,9 +95,10 @@ namespace Achievers
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseDeveloperExceptionPage();
+
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
@@ -148,6 +149,13 @@ namespace Achievers
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true,
                 TokenValidationParameters = tokenValidationParameters
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "getCategories",
+                    template: "{controller=Categories}/{action=Get}/{page}");
             });
 
             app.UseMvc(routes =>

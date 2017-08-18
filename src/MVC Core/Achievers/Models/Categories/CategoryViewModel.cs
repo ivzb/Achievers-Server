@@ -10,20 +10,16 @@ namespace Achievers.Models.Categories
 
         public string Title { get; set; }
 
+        public string Description { get; set; }
+
         public string ImageUrl { get; set; }
+
+        public int? ParentId { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<CategoryViewModel, Category>()
                 .ForMember(x => x.Id, m => m.Ignore());
         }
-
-        //public static Expression<Func<Category, CategoryViewModel>> FromCategory
-        //    => x => new CategoryViewModel
-        //    {
-        //        Id = x.Id,
-        //        Title = x.Title,
-        //        ImageUrl = x.ImageUrl
-        //    };
     }
 }
