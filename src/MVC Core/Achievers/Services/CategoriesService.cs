@@ -18,18 +18,6 @@ namespace Achievers.Services
         {
         }
 
-        public async Task<List<CategoryViewModel>> AllAsync(int page, int pageSize)
-        {
-            IQueryable<Category> query = this.Data.Categories.AsQueryable();
-            
-            return await query
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .To<CategoryViewModel>()
-                //.Select(CategoryViewModel.FromCategory)
-                .ToListAsync();
-        }
-
         public async Task<int> CreateAsync()
         {
             throw new NotImplementedException("todo");
@@ -51,7 +39,6 @@ namespace Achievers.Services
                 .Categories
                 .Where(x => x.Id == id)
                 .To<CategoryDetailsViewModel>()
-                //.Select(CategoryDetailsViewModel.FromCategory)
                 .FirstOrDefaultAsync();
         }
 
@@ -61,7 +48,6 @@ namespace Achievers.Services
                 .Categories
                 .Where(x => x.ParentId == parentId)
                 .To<CategoryViewModel>()
-                //.Select(CategoryViewModel.FromCategory)
                 .ToListAsync();
         }
 

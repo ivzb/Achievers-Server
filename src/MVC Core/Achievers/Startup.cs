@@ -151,12 +151,12 @@ namespace Achievers
                 TokenValidationParameters = tokenValidationParameters
             });
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "getCategories",
-                    template: "{controller=Categories}/{action=Get}/{page}");
-            });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "getCategories",
+            //        template: "{controller=Categories}/{action=Get}/{parentId?}");
+            //});
 
             app.UseMvc(routes =>
             {

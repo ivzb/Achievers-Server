@@ -22,7 +22,6 @@ namespace Achievers.Services
             return await this.Data
                 .Evidence
                 .Where(x => x.Id == id)
-                //.Select(EvidenceDetailsViewModel.FromEvidence)
                 .To<EvidenceDetailsViewModel>()
                 .FirstOrDefaultAsync();
         }
@@ -32,7 +31,6 @@ namespace Achievers.Services
             return await this.Data
                 .Evidence
                 .Where(x => x.AchievementId == achievementId)
-                //.Select(EvidenceViewModel.FromEvidence)
                 .To<EvidenceViewModel>()
                 .ToListAsync();
         }

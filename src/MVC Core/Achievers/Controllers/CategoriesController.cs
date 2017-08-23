@@ -16,12 +16,6 @@ namespace Achievers.Controllers
             this.categories = categories;
         }
 
-        public async Task<IActionResult> Get(int page)
-        {
-            int pageSize = 21;
-            return await this.JsonOrNotFound(async () => await this.categories.AllAsync(page, pageSize));
-        }
-
         public async Task<IActionResult> Details(int id)
         {
             return await this.JsonOrNotFound(async () => await this.categories.FindAsync(id));
